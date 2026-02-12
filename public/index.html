@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aspose MCP Preview</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <header class="header">
+        <h1 class="logo">Aspose MCP Preview</h1>
+        <div class="header-controls">
+          <div class="layout-controls">
+            <label class="layout-label">Layout:</label>
+            <select id="layout-select" class="layout-select">
+              <!-- Options populated by JS -->
+            </select>
+          </div>
+          <div class="zoom-controls">
+            <button id="zoom-fit" class="btn btn-icon" title="Fit to window">Fit</button>
+            <button id="zoom-100" class="btn btn-icon" title="100%">100%</button>
+            <input
+              type="number"
+              id="zoom-input"
+              class="zoom-input"
+              min="10"
+              max="500"
+              value="100"
+            />
+            <span class="zoom-label">%</span>
+          </div>
+          <div class="pdf-controls" id="pdf-controls" style="display: none">
+            <button id="pdf-prev" class="btn btn-icon" title="Previous page">&lt;</button>
+            <span id="pdf-page-info">1 / 1</span>
+            <button id="pdf-next" class="btn btn-icon" title="Next page">&gt;</button>
+          </div>
+          <div class="theme-controls">
+            <select id="theme-select" class="theme-select">
+              <option value="system">System</option>
+              <option value="light">Light</option>
+              <option value="dark">Dark</option>
+            </select>
+          </div>
+          <div class="debug-controls">
+            <label class="debug-toggle">
+              <input type="checkbox" id="debug-check" />
+              Debug
+            </label>
+          </div>
+          <div class="connection-status" id="connection-status">
+            <span class="status-dot disconnected"></span>
+            <span class="status-text">Disconnected</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Layout container (managed by layoutManager) -->
+      <div class="layout-root" id="layout-root"></div>
+
+      <!-- Panel templates (hidden, moved by layoutManager) -->
+      <template id="panel-session">
+        <aside class="sidebar" id="sidebar">
+          <div class="sidebar-header">
+            <h2>Sessions</h2>
+            <button id="sidebar-toggle" class="btn btn-icon sidebar-toggle" title="Toggle sidebar">
+              <span class="toggle-icon">&laquo;</span>
+            </button>
+          </div>
+          <ul class="session-list" id="session-list">
+            <li class="no-sessions">No active sessions</li>
+          </ul>
+        </aside>
+      </template>
+
+      <template id="panel-preview">
+        <main class="preview-container" id="preview-container">
+          <div class="preview-placeholder" id="preview-placeholder">
+            <p>Select a session to preview</p>
+            <p class="hint">Waiting for snapshots from aspose-mcp-server...</p>
+          </div>
+          <div class="preview-content" id="preview-content" style="display: none">
+            <!-- PNG preview -->
+            <img id="preview-image" class="preview-image" alt="Preview" style="display: none" />
+            <!-- HTML preview -->
+            <iframe
+              id="preview-iframe"
+              class="preview-iframe"
+              sandbox="allow-same-origin"
+              style="display: none"
+            ></iframe>
+            <!-- PDF preview -->
+            <canvas id="preview-pdf" class="preview-pdf" style="display: none"></canvas>
+          </div>
+          <div class="preview-error" id="preview-error" style="display: none">
+            <p class="error-message"></p>
+            <button class="btn" onclick="location.reload()">Retry</button>
+          </div>
+        </main>
+      </template>
+
+      <template id="panel-log">
+        <div class="log-panel" id="log-panel">
+          <div class="log-header" id="log-header">
+            <span class="log-title">Logs</span>
+            <div class="log-controls">
+              <select id="log-filter" class="log-filter">
+                <option value="all">All</option>
+                <option value="protocol">Protocol</option>
+                <option value="session">Session</option>
+                <option value="server">Server</option>
+              </select>
+              <label class="log-auto-scroll">
+                <input type="checkbox" id="log-auto-scroll-check" checked />
+                Auto-scroll
+              </label>
+              <button id="log-clear" class="btn btn-sm">Clear</button>
+              <button id="log-toggle" class="btn btn-icon log-toggle">
+                <span class="toggle-icon">&and;</span>
+              </button>
+            </div>
+          </div>
+          <div class="log-content" id="log-content">
+            <div class="log-messages" id="log-messages"></div>
+          </div>
+        </div>
+      </template>
+    </div>
+
+    <!-- PDF.js from CDN -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/pdfjs-dist@5.4.624/build/pdf.min.mjs"
+      type="module"
+    ></script>
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>

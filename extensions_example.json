@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "1.0",
+  "extensions": {
+    "aspose-mcp-preview": {
+      "command": {
+        "type": "npx",
+        "executable": "aspose-mcp-preview@latest",
+        "arguments": "",
+        "environment": {}
+      },
+      "inputFormats": ["png", "html", "pdf"],
+      "supportedDocumentTypes": ["word", "excel", "powerpoint", "pdf"],
+      "transportModes": ["stdin", "file", "mmap"],
+      "preferredTransportMode": "stdin",
+      "protocolVersion": "1.0",
+      "capabilities": {
+        "supportsHeartbeat": true,
+        "frameIntervalMs": 100,
+        "snapshotTtlSeconds": 30,
+        "maxMissedHeartbeats": 3,
+        "idleTimeoutMinutes": 30
+      }
+    }
+  }
+}
