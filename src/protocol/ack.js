@@ -44,7 +44,7 @@ export async function sendInitializeResponse() {
     version: pkg.version,
     title: 'Aspose MCP Preview',
     description: pkg.description,
-    author: pkg.author || '',
+    author: typeof pkg.author === 'string' ? pkg.author : pkg.author?.name || '',
     websiteUrl: pkg.repository?.url?.replace(/\.git$/, '') || ''
   };
 
