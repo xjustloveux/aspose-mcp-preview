@@ -1,5 +1,5 @@
 import { loadConfig } from './config.js';
-import { initLogger, info, error, createLogger } from './logger.js';
+import { initLogger, info, error, createLogger, isDebugEnabled } from './logger.js';
 import { createServer, startServer, stopServer } from './server/fastify.js';
 import { initWebSocket, broadcast, closeAllConnections } from './server/websocket.js';
 import { createProtocolParser } from './protocol/parser.js';
@@ -52,13 +52,15 @@ export async function main() {
     },
     onHeartbeat: () => {
       log.debug('Received heartbeat');
-      broadcast({
-        type: 'log',
-        level: 'debug',
-        category: 'protocol',
-        message: 'Received heartbeat, sent pong',
-        timestamp: new Date().toISOString()
-      });
+      if (isDebugEnabled()) {
+        broadcast({
+          type: 'log',
+          level: 'debug',
+          category: 'protocol',
+          message: 'Received heartbeat, sent pong',
+          timestamp: new Date().toISOString()
+        });
+      }
     },
     onSessionClosed: (sessionId) => {
       log.debug(`Session closed: ${sessionId}`);
