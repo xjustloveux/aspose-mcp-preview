@@ -2,6 +2,7 @@
 
 [![Release](https://github.com/xjustloveux/aspose-mcp-preview/actions/workflows/release.yml/badge.svg)](https://github.com/xjustloveux/aspose-mcp-preview/actions/workflows/release.yml)
 [![npm version](https://img.shields.io/npm/v/aspose-mcp-preview.svg)](https://www.npmjs.com/package/aspose-mcp-preview)
+[![Socket Badge](https://socket.dev/api/badge/npm/package/aspose-mcp-preview)](https://socket.dev/npm/package/aspose-mcp-preview)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Node.js](https://img.shields.io/badge/Node.js-%3E%3D20-green.svg)](https://nodejs.org/)
 
