@@ -1,6 +1,6 @@
 {
   "name": "aspose-mcp-preview",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Real-time document preview extension for aspose-mcp-server",
   "type": "module",
   "main": "src/index.js",
