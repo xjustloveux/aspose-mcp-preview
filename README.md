@@ -10,6 +10,8 @@
 
 當 MCP 用戶端透過 aspose-mcp-server 編輯文件時，此擴充套件會在瀏覽器中顯示 PNG、HTML 或 PDF 預覽，提供即時的視覺回饋。
 
+![Demo](https://github.com/user-attachments/assets/8093e281-059e-47d3-b356-5578e3284658)
+
 ## 功能特色
 
 - 透過 WebSocket 即時更新預覽
