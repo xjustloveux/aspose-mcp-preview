@@ -170,10 +170,35 @@ function connectWebSocket() {
   state.ws = new WebSocket(wsUrl);
 
   state.ws.onopen = () => {
+    const wasReconnect = state.reconnectAttempts > 0;
     state.reconnectAttempts = 0;
     updateConnectionStatus('connected');
     addLog('info', 'server', 'WebSocket connected');
     sendDebugSetting(state.debug);
+
+    // After reconnect, sync session list from server to avoid stale state
+    if (wasReconnect) {
+      fetch('/api/sessions')
+        .then(r => r.json())
+        .then(({ sessions }) => {
+          const serverIds = new Set(sessions.map(s => s.sessionId));
+          Object.keys(state.sessions).forEach(id => {
+            if (!serverIds.has(id)) {
+              delete state.sessions[id];
+            }
+          });
+          sessions.forEach(s => {
+            if (!state.sessions[s.sessionId]) {
+              state.sessions[s.sessionId] = s;
+            }
+          });
+          renderSessionList();
+          addLog('info', 'server', `Session list synced: ${sessions.length} active sessions`);
+        })
+        .catch(err => {
+          addLog('warn', 'server', `Failed to sync sessions: ${err.message}`);
+        });
+    }
   };
 
   state.ws.onmessage = (event) => {
@@ -266,7 +291,6 @@ function handleWebSocketMessage(message) {
     break;
 
   case 'pong':
-    // Heartbeat response
     break;
 
   default:
@@ -527,7 +551,6 @@ async function showPdfPreview(blob) {
 async function renderPdfPage(pageNum) {
   if (!state.pdfDocument) return;
 
-  // Cancel any existing render task before starting a new one
   if (state.pdfRenderTask) {
     try {
       state.pdfRenderTask.cancel();

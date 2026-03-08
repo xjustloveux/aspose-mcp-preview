@@ -187,7 +187,6 @@ export function createProtocolParser(options) {
     buffer = Buffer.concat([buffer, data]);
 
     while (await parseMessage()) {
-      // Continue processing messages until buffer is exhausted
     }
   }
 

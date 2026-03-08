@@ -275,7 +275,6 @@ class LayoutManager {
       state.size.height = Math.max(minSize.height, state.size.height + delta);
     }
 
-    // Directly update the panel element instead of rebuilding layout
     const panelWrapper = this.container.querySelector(`[data-panel="${panelId}"]`);
     if (panelWrapper) {
       if (dimension === 'width') {
@@ -321,7 +320,6 @@ class LayoutManager {
       if (node.position) {
         container.dataset.position = node.position;
 
-        // Apply size to combined containers (left/right positioned)
         if (node.position === 'left' || node.position === 'right') {
           const savedWidth = this.containerSizes[node.position] || 280;
           container.style.width = `${savedWidth}px`;
@@ -341,7 +339,6 @@ class LayoutManager {
       node.children.forEach((child, index) => {
         this.buildLayoutNode(child, container);
 
-        // Add resizer between children (except after last)
         if (index < node.children.length - 1) {
           const nextChild = node.children[index + 1];
           // Add resizer between non-center panels/containers
