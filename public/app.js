@@ -182,14 +182,10 @@ function connectWebSocket() {
         .then(r => r.json())
         .then(({ sessions }) => {
           const serverIds = new Set(sessions.map(s => s.sessionId));
-          Object.keys(state.sessions).forEach(id => {
-            if (!serverIds.has(id)) {
-              delete state.sessions[id];
-            }
-          });
+          state.sessions = state.sessions.filter(s => serverIds.has(s.sessionId));
           sessions.forEach(s => {
-            if (!state.sessions[s.sessionId]) {
-              state.sessions[s.sessionId] = s;
+            if (!state.sessions.find(existing => existing.sessionId === s.sessionId)) {
+              state.sessions.push(s);
             }
           });
           renderSessionList();
