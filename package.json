@@ -39,7 +39,7 @@
     "@fastify/static": "^9.0.0",
     "@fastify/websocket": "^11.2.0",
     "fastify": "^5.7.4",
-    "koffi": "^2.15.1",
+    "koffi": "^3.0.1",
     "minimist": "^1.2.8",
     "open": "^11.0.0"
   },
